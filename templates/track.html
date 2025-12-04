@@ -1,31 +1,75 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="card">
-    <h1>🚗 Car Wash Tracking</h1>
+<div class="track-container">
+    <h1 class="title">🚗 Car Wash Live Tracking</h1>
 
-    <p><b>Customer:</b> {{data.customer}}</p>
-    <p><b>Car No:</b> {{data.car}}</p>
-    <p><b>Service:</b> {{data.service}}</p>
+    <div class="info-box">
+        <p><b>Customer:</b> {{data.customer}}</p>
+        <p><b>Car No:</b> {{data.car}}</p>
+        <p><b>Service:</b> {{data.service}}</p>
+    </div>
 
-    <hr>
-
-    <p id="status" class="status"></p>
-    <p id="time" class="time"></p>
+    <div id="timeline" class="timeline"></div>
 </div>
 
 <script>
-function reload() {
+const allSteps = [
+    "Car Received",
+    "Waiting To Wash",
+    "Car Entered In Washing Area And Washing Started",
+    "Applying Foam",
+    "Final Water Wash",
+    "Waiting For Next Step (Wash Completed)",
+    "Interior Cleaning Started (30 Minutes Itna Time Lagega)",
+    "Finalizing...",
+    "Car Washing/Cleaning Completed (Waiting To Pickup By Customer)",
+    "You Have Picked Up Your Car Thank You For Using Our Service",
+
+    // Deep Cleaning
+    "Waiting To Start Cleaning",
+    "Deep Cleaning Started",
+    "Expected Time: 1 Hour",
+    "Deep Cleaning Completed",
+
+    // Waxing
+    "Waiting To Start Waxing",
+    "Waxing Started",
+    "Wax Application",
+    "Buffing & Polishing",
+    "Waxing Completed",
+
+    // Teflon
+    "Waiting For Teflon Coating",
+    "Teflon Coating Started",
+    "Scratch Removal Process",
+    "Teflon Protection Completed"
+];
+
+function load() {
     fetch("/live/{{tid}}")
         .then(r => r.json())
         .then(d => {
-            document.getElementById("status").innerHTML = d.status;
-            document.getElementById("time").innerHTML = "Updated: " + d.time;
+            const timeline = document.getElementById("timeline");
+            timeline.innerHTML = "";
+
+            allSteps.forEach(step => {
+                let done = (allSteps.indexOf(step) <= allSteps.indexOf(d.status));
+
+                timeline.innerHTML += `
+                    <div class="step ${done ? 'active' : ''}">
+                        <div class="bullet">${done ? "✔" : ""}</div>
+                        <div class="step-text">
+                            ${step}
+                            ${step == d.status ? `<span class='time'>[ ${d.time} ]</span>` : ""}
+                        </div>
+                    </div>
+                `;
+            });
         });
 }
-
-setInterval(reload, 2000);
-reload();
+setInterval(load, 1500);
+load();
 </script>
 
 {% endblock %}
