@@ -1,56 +1,72 @@
 body {
-    background: #f2f2f7;
-    font-family: Arial;
+    background: #0d0d0e;
+    color: #e5e5e5;
+    font-family: "Poppins", sans-serif;
 }
 
-.container {
+.title {
+    color: #00ff2a;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.track-container {
     width: 90%;
     max-width: 700px;
     margin: auto;
-    padding-top: 20px;
 }
 
-.card {
-    background: white;
-    padding: 20px;
-    margin-bottom: 25px;
-    border-radius: 16px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1);
-}
-
-.card h2, h1 {
-    margin-bottom: 15px;
-}
-
-input, select {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
+.info-box {
+    background: #1a1a1c;
+    padding: 18px;
+    border-left: 4px solid #f8d200;
     border-radius: 10px;
-    border: 1px solid #ccc;
+    margin-bottom: 25px;
 }
 
-button {
-    width: 100%;
-    padding: 12px;
-    background: #007aff;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
+.timeline {
+    padding-left: 10px;
+    border-left: 3px solid #00ff2a;
+}
+
+.step {
+    display: flex;
+    align-items: start;
+    margin-bottom: 18px;
+}
+
+.bullet {
+    width: 22px;
+    height: 22px;
+    background: #111;
+    border-radius: 50%;
+    border: 2px solid #333;
+    color: #00ff2a;
+    font-size: 14px;
+    text-align: center;
+    line-height: 18px;
+    margin-right: 14px;
+}
+
+.step.active .bullet {
+    background: #00ff2a;
+    color: #000;
+    border-color: #00ff2a;
+}
+
+.step-text {
     font-size: 16px;
+    color: #e1e1e1;
 }
 
-button:hover {
-    background: #005fcc;
-}
-
-.status {
-    font-size: 22px;
+.step.active .step-text {
+    color: #f9ff9d;
     font-weight: bold;
 }
 
 .time {
     font-size: 13px;
-    color: gray;
+    color: #00ff2a;
+    margin-left: 10px;
 }
