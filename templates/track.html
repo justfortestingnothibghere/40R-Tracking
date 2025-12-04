@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="card">
+    <h1>🚗 Car Wash Tracking</h1>
+
+    <p><b>Customer:</b> {{data.customer}}</p>
+    <p><b>Car No:</b> {{data.car}}</p>
+    <p><b>Service:</b> {{data.service}}</p>
+
+    <hr>
+
+    <p id="status" class="status"></p>
+    <p id="time" class="time"></p>
+</div>
+
+<script>
+function reload() {
+    fetch("/live/{{tid}}")
+        .then(r => r.json())
+        .then(d => {
+            document.getElementById("status").innerHTML = d.status;
+            document.getElementById("time").innerHTML = "Updated: " + d.time;
+        });
+}
+
+setInterval(reload, 2000);
+reload();
+</script>
+
+{% endblock %}
