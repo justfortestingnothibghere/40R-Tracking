@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>🛠 Admin Dashboard</h1>
+
+<!-- Create New Tracking -->
+<div class="card">
+    <h2>Create New Tracking</h2>
+    <form action="/create" method="POST">
+        <input type="text" name="customer" placeholder="Customer Name" required>
+        <input type="text" name="car_no" placeholder="Car Number" required>
+
+        <select name="service">
+            <option>Normal Wash</option>
+            <option>Body Wash</option>
+            <option>Interior Deep Cleaning</option>
+            <option>Waxing</option>
+            <option>Teflon Removing Scratches</option>
+        </select>
+
+        <button type="submit">Create Tracking</button>
+    </form>
+</div>
+
+<hr><br>
+
+<h2>📌 Live Orders</h2>
+
+{% for tid, o in orders.items() %}
+<div class="card">
+    <h3>{{ o.customer }} — ({{ o.car }})</h3>
+    <p><b>Tracking ID:</b> {{tid}}</p>
+    <p><b>Service:</b> {{o.service}}</p>
+    <p><b>Status:</b> {{o.status}}</p>
+
+    <form action="/update/{{tid}}" method="POST">
+
+        <select name="status">
+
+            <!-- BASIC WASH -->
+            <option>Car Received</option>
+            <option>Waiting To Wash</option>
+            <option>Car Entered In Washing Area And Washing Started</option>
+            <option>Applying Foam</option>
+            <option>Final Water Wash</option>
+            <option>Waiting For Next Step (Wash Completed)</option>
+            <option>Interior Cleaning Started (30 Minutes Itna Time Lagega)</option>
+            <option>Finalizing...</option>
+            <option>Car Washing/Cleaning Completed (Waiting To Pickup By Customer)</option>
+            <option>You Have Picked Up Your Car Thank You For Using Our Service</option>
+
+            <!-- DEEP CLEANING -->
+            <option>Waiting To Start Cleaning</option>
+            <option>Deep Cleaning Started</option>
+            <option>Expected Time: 1 Hour</option>
+            <option>Deep Cleaning Completed</option>
+
+            <!-- WAX -->
+            <option>Waiting To Start Waxing</option>
+            <option>Waxing Started</option>
+            <option>Wax Application</option>
+            <option>Buffing & Polishing</option>
+            <option>Waxing Completed</option>
+
+            <!-- TEFLON -->
+            <option>Waiting For Teflon Coating</option>
+            <option>Teflon Coating Started</option>
+            <option>Scratch Removal Process</option>
+            <option>Teflon Protection Completed</option>
+
+        </select>
+
+        <button>Update</button>
+
+    </form>
+
+</div>
+{% endfor %}
+
+{% endblock %}
