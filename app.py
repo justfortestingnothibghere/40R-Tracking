@@ -16,7 +16,7 @@ orders = {}
 def keep_alive():
     while True:
         try:
-            requests.get("https://your-app.onrender.com/ping")
+            requests.get("https://four0r-car-wash-tracking.onrender.com/ping")
         except:
             pass
         time.sleep(25)  # Less than 50 sec Render timeout
@@ -70,7 +70,7 @@ def create_order():
         "time": datetime.now().strftime("%Y-%m-%d %H:%M")
     }
 
-    track_url = f"https://your-app.onrender.com/track/{tid}"
+    track_url = f"https://four0r-car-wash-tracking.onrender.com/track/{tid}"
 
     return f"""
         <h3>Tracking Created Successfully ✔</h3>
